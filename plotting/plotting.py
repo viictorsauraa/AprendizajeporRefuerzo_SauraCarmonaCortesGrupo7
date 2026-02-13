@@ -83,7 +83,14 @@ def plot_optimal_selections(steps: int, optimal_selections: np.ndarray, algorith
     plt.ylabel('% Selección del Brazo Óptimo', fontsize=14)
     plt.title('Porcentaje de Selección del Brazo Óptimo vs Pasos de Tiempo', fontsize=16)
     plt.legend(title='Algoritmos')
-    plt.ylim([0, 100])  # El porcentaje va de 0 a 100
+    
+    # Ajustar ylim: si hay valores muy bajos, dar un pequeño margen para visualizarlos
+    min_val = np.min(optimal_selections)
+    if min_val < 5:
+        plt.ylim([-2, 100])  # Margen inferior para ver líneas cerca de 0
+    else:
+        plt.ylim([0, 100])  # El porcentaje va de 0 a 100
+    
     plt.tight_layout()
     plt.show()
 
@@ -181,17 +188,19 @@ def plot_arm_statistics(arm_stats: List[dict], algorithms: List[Algorithm], opti
         bars = ax.bar(range(n_arms), mean_rewards, color=colors, 
                      edgecolor='black', linewidth=1.5, alpha=0.8)
         
-        # Personalizar etiquetas del eje X
+        # Personalizar etiquetas del eje X - Formato ultra-compacto
         x_labels = []
         for arm_idx in range(n_arms):
-            label = f"Brazo {arm_idx}"
+            # Formato en una sola línea: B0(1234) o B0★(1234)
+            sel_count = int(selections[arm_idx])
             if optimal_arm_idx is not None and arm_idx == optimal_arm_idx:
-                label += "\n★ ÓPTIMO ★"
-            label += f"\n({int(selections[arm_idx])} selecciones)"
+                label = f"B{arm_idx}★({sel_count})"
+            else:
+                label = f"B{arm_idx}({sel_count})"
             x_labels.append(label)
         
         ax.set_xticks(range(n_arms))
-        ax.set_xticklabels(x_labels, fontsize=9)
+        ax.set_xticklabels(x_labels, fontsize=7, rotation=45, ha='right')
         
         # Añadir valores sobre las barras
         for bar, reward, sel in zip(bars, mean_rewards, selections):
