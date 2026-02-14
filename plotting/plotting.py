@@ -19,7 +19,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-from algorithms import Algorithm, EpsilonGreedy, Softmax
+from algorithms import Algorithm, EpsilonGreedy, Softmax, UCB1
 
 
 def get_algorithm_label(algo: Algorithm) -> str:
@@ -36,6 +36,8 @@ def get_algorithm_label(algo: Algorithm) -> str:
         label += f" (epsilon={algo.epsilon})"
     elif isinstance(algo, Softmax):
         label += f" (tau={algo.tau})"
+    elif isinstance(algo, UCB1):
+        label += f" (c={algo.c})"
     else:
         raise ValueError("El algoritmo debe ser de la clase Algorithm o una subclase.")
     return label
