@@ -52,21 +52,3 @@ La primera responde *cuánto costó* la estrategia de exploración; la segunda, 
 la política convergió a la decisión correcta*. Juntas permiten argumentar tanto la ventaja de
 explorar (frente a ε=0) como la limitación de explorar con tasa fija (frente a algoritmos
 adaptativos como UCB).
-
----
-
-## Cambios realizados en el código
-
-### `arms/armbernoulli.py`
-- **Corrección**: `ArmBernoulli` ahora hereda de `ArmBinomial` en lugar de `Arm`.
-  Refleja que Bernoulli es un caso particular de Binomial con n=1.
-- Constructor: `super().__init__(n=1, p=p)` — toda la lógica de `pull()` y
-  `can_approximate_normal()` se hereda sin duplicación.
-- Jerarquía resultante: `Arm → ArmBinomial → ArmBernoulli`
-
-### `plotting/plotting.py`
-- **Corrección**: `plot_optimal_selections` — `ylim([-2, 100])` sustituido por
-  `ylim([0, 105])`. Un porcentaje no puede ser negativo.
-- **Añadido**: `plot_arm_statistics` — leyenda global de colores con `matplotlib.patches`
-  (verde=brazo óptimo, azul=brazo subóptimo, gris=no seleccionado). Exigido implícitamente
-  por el enunciado ("añade lo que consideres necesario para clarificar la gráfica").
