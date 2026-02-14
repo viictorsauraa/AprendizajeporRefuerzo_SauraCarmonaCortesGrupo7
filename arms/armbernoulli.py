@@ -19,24 +19,6 @@ class ArmBernoulli(ArmBinomial):
         """
         super().__init__(n=1, p=p)
 
-    def get_expected_value(self) -> float:
-        """
-        Devuelve el valor esperado de la distribución Bernoulli.
-        Para una distribución Bernoulli, el valor esperado es μ = p.
-
-        :return: Valor esperado de la distribución.
-        """
-        return self.p
-
-    def get_variance(self) -> float:
-        """
-        Devuelve la varianza de la distribución Bernoulli.
-        Para una distribución Bernoulli, la varianza es σ² = p(1-p).
-
-        :return: Varianza de la distribución.
-        """
-        return self.p * (1 - self.p)
-
     def __str__(self):
         """
         Representación en cadena del brazo Bernoulli.
