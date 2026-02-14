@@ -17,8 +17,9 @@ from typing import List
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
-from algorithms import Algorithm, EpsilonGreedy
+from algorithms import Algorithm, EpsilonGreedy, Softmax
 
 
 def get_algorithm_label(algo: Algorithm) -> str:
@@ -33,9 +34,8 @@ def get_algorithm_label(algo: Algorithm) -> str:
     label = type(algo).__name__
     if isinstance(algo, EpsilonGreedy):
         label += f" (epsilon={algo.epsilon})"
-    # elif isinstance(algo, OtroAlgoritmo):
-    #     label += f" (parametro={algo.parametro})"
-    # Añadir más condiciones para otros algoritmos aquí
+    elif isinstance(algo, Softmax):
+        label += f" (tau={algo.tau})"
     else:
         raise ValueError("El algoritmo debe ser de la clase Algorithm o una subclase.")
     return label
@@ -84,12 +84,7 @@ def plot_optimal_selections(steps: int, optimal_selections: np.ndarray, algorith
     plt.title('Porcentaje de Selección del Brazo Óptimo vs Pasos de Tiempo', fontsize=16)
     plt.legend(title='Algoritmos')
     
-    # Ajustar ylim: si hay valores muy bajos, dar un pequeño margen para visualizarlos
-    min_val = np.min(optimal_selections)
-    if min_val < 5:
-        plt.ylim([-2, 100])  # Margen inferior para ver líneas cerca de 0
-    else:
-        plt.ylim([0, 100])  # El porcentaje va de 0 a 100
+    plt.ylim([0, 105])  # El porcentaje va de 0 a 100; margen superior para legibilidad
     
     plt.tight_layout()
     plt.show()
@@ -232,8 +227,17 @@ def plot_arm_statistics(arm_stats: List[dict], algorithms: List[Algorithm], opti
         ax.grid(axis='y', alpha=0.3)
     
     # Título general
-    fig.suptitle('Estadísticas de Brazos: Recompensas Promedio y Frecuencia de Selección', 
+    fig.suptitle('Estadísticas de Brazos: Recompensas Promedio y Frecuencia de Selección',
                 fontsize=16, fontweight='bold', y=1.02)
-    
+
+    # Leyenda global de colores
+    legend_handles = [
+        mpatches.Patch(color=color_optimal, label='Brazo óptimo'),
+        mpatches.Patch(color=color_suboptimal, label='Brazo subóptimo'),
+        mpatches.Patch(color=color_not_selected, label='No seleccionado'),
+    ]
+    fig.legend(handles=legend_handles, loc='lower center', ncol=3,
+               fontsize=11, frameon=True, bbox_to_anchor=(0.5, -0.04))
+
     plt.tight_layout()
     plt.show()

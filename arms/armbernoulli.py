@@ -6,10 +6,10 @@ Description: Contains the implementation of the ArmBernoulli class for the Berno
 
 import numpy as np
 
-from arms import Arm
+from arms.armbinomial import ArmBinomial
 
 
-class ArmBernoulli(Arm):
+class ArmBernoulli(ArmBinomial):
     def __init__(self, p: float):
         """
         Inicializa el brazo con distribución Bernoulli.
@@ -17,20 +17,7 @@ class ArmBernoulli(Arm):
 
         :param p: Probabilidad de éxito (recompensa = 1).
         """
-        assert 0 <= p <= 1, "La probabilidad p debe estar en el rango [0, 1]."
-
-        self.p = p
-        self.n = 1 # Definimos n=1 como constante para la distribución Bernoulli
-
-    def pull(self):
-        """
-        Genera una recompensa siguiendo una distribución Bernoulli.
-        Retorna 1 (éxito) con probabilidad p, y 0 (fracaso) con probabilidad 1-p.
-
-        :return: Recompensa obtenida del brazo (0 o 1).
-        """
-        reward = np.random.binomial(self.n, self.p)
-        return reward
+        super().__init__(n=1, p=p)
 
     def get_expected_value(self) -> float:
         """
