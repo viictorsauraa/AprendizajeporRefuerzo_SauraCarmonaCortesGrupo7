@@ -4,3 +4,5 @@ env/
 .venv/
 eml_env
 .eml_env
+# Cache
+*.pyc
