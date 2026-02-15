@@ -19,5 +19,5 @@ from .softmax import Softmax
 from .ucb1 import UCB1
 
 # Lista de módulos o clases públicas
-__all__ = ['Algorithm', 'EpsilonGreedy', 'Softmax', 'UCB1']
+__all__ = ['Algorithm', 'EpsilonGreedy', 'EpsilonDecaimiento', 'Softmax', 'UCB1']
 
