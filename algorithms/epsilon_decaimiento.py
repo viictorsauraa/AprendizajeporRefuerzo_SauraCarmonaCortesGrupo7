@@ -71,8 +71,3 @@ class EpsilonDecaimiento(Algorithm):
         self.t += 1
 
         return chosen_arm
-
-
-
-
-
