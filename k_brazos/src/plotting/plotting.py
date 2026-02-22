@@ -101,7 +101,7 @@ def plot_regret(steps: int, regret_accumulated: np.ndarray, algorithms: List[Alg
     :param steps: Número de pasos de tiempo.
     :param regret_accumulated: Matriz de regret acumulado (algoritmos x pasos).
     :param algorithms: Lista de instancias de algoritmos comparados.
-    :param args: Opcional. Parámetros adicionales como la cota teórica Cte * ln(T).
+    :param args: Opcional. Cota teórica Cte * ln(T).
     """
     sns.set_theme(style="whitegrid", palette="muted", font_scale=1.2)
 
