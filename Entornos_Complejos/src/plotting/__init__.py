@@ -14,7 +14,9 @@ For more details about GPL-3.0: https://www.gnu.org/licenses/gpl-3.0.html
 
 # Importación de módulos o clases
 from .plotting import plot, plot_lengths, plot_scenario
+from .plotting import show_greedy_episode, print_q_summary
 
 # Lista de módulos o clases públicas
-__all__ = ['plot', 'plot_lengths', 'plot_scenario']
+__all__ = ['plot', 'plot_lengths', 'plot_scenario',
+           'show_greedy_episode', 'print_q_summary']
 

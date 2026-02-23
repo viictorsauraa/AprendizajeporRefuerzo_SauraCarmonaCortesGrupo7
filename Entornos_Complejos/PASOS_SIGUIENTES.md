@@ -1,6 +1,6 @@
 # Pasos Siguientes — Entornos Complejos
 
-Estado a fecha 2026-02-22. La parte A y el Paso 1 (MC off-policy) están completados.
+Estado a fecha 2026-02-23. La parte A, Paso 1 (MC off-policy en FrozenLake) y Paso 1b (MC experiment Taxi-v3) están completados.
 
 ---
 
@@ -15,7 +15,7 @@ Estado a fecha 2026-02-22. La parte A y el Paso 1 (MC off-policy) están complet
 
 ### ✅ Paso 1 — Monte Carlo off-policy `MonteCarloOffPolicy.ipynb`
 
-**COMPLETADO.** Fichero: `src/MonteCarloOffPolicy.ipynb`. Ejecutado en `tests/MonteCarloOffPolicy.ipynb`.
+**COMPLETADO.** Fichero: `src/MonteCarloOffPolicy.ipynb`.
 
 Algoritmo implementado: **Algoritmo 6** del PDF (off-policy control con IS ponderado). Se eligió el 6 porque:
 - Alg. 4: predicción de V(s) para π fija — no hace control.
@@ -33,6 +33,29 @@ Hallazgos clave:
 - **q_init necesario en 8×8**: Q=0 → argmax siempre devuelve LEFT (acción 0) → agente atrapado en esquina. q_init=0.01 rompe el sesgo.
 - **Por qué q_init sobrevive**: el break del backward loop protege la mayoría de Q[s,a] de ser actualizados en episodios fallidos. La tabla Q del 8×8 muestra tres poblaciones: ~1.0 (trayectoria greedy), ~0.001–0.009 (q_init sin actualizar), 0.0 (agujeros).
 - **Validez**: Alg. 6 dice "Q(s,a) ∈ ℝ, arbitrarily" → inicialización aleatoria explícitamente válida.
+
+---
+
+### ✅ Paso 1b — Monte Carlo comparativo Taxi-v3 `MonteCarlo_experiment.ipynb`
+
+**COMPLETADO.** Fichero: `src/MonteCarlo_experiment.ipynb`. Ejecutado con outputs guardados (35 celdas).
+
+Entorno: **Taxi-v3** (500 estados, 6 acciones, recompensas: −1/paso, +20 entrega, −10 ilegal).
+Implementa ambos agentes (Alg. 3 on-policy y Alg. 6 off-policy) + estudio comparativo.
+Semilla SEED=2024, patrón PDF sección 5.4.
+
+Resultados (100 000 episodios, SEED=2024):
+| Agente | ε | Reward medio final | Greedy: pasos | Greedy: reward |
+|--------|---|--------------------|---------------|----------------|
+| On-policy | 0.2, decay | **-156.14** | 16 | 5 |
+| Off-policy | 0.3, decay | **-24.74** | 12 | 9 |
+
+Hallazgos clave:
+- **Off-policy domina** (6x mejor reward final): IS ponderado filtra penalizaciones de exploración. Q media off-policy = +3.12 vs −242 on-policy.
+- **Off-policy ~5x más rápido** (3.5 min vs 16.5 min): backward break hace episodios de training más cortos.
+- **Política greedy off-policy más eficiente** (12 vs 16 pasos desde el mismo estado inicial).
+- Sin q_init necesario en Taxi: 300 estados iniciales aleatorios evitan el sesgo de argmax.
+- Seed en train(): `env.reset()` SIN seed (usa RNG interno sembrado), no `env.reset(seed=X)`.
 
 ---
 

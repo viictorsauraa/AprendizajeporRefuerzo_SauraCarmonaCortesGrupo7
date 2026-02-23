@@ -68,23 +68,33 @@ class GymnasiumAgent(ABC):
         """
         raise NotImplementedError("Este método debe ser implementado por la subclase.")
     
-    def __pi_star_from_Q__(self, Q):
+    def __pi_star_from_Q__(self, Q, seed=None, max_steps=None, action_names=None):
         done = False
         env = self.env
         pi_star = np.zeros([env.observation_space.n, env.action_space.n])
-        state, info = env.reset()
-        actions = ""
-        while not done:
-            action = np.argmax(Q[state, :])
-            actions += f"{action}, "
+        state, info = env.reset(seed=seed) if seed is not None else env.reset()
+        action_list = []
+        steps = 0
+        while not done and (max_steps is None or steps < max_steps):
+            action = int(np.argmax(Q[state, :]))
+            label = action_names[action] if action_names else str(action)
+            action_list.append(label)
             pi_star[state, action] = action
             state, reward, terminated, truncated, info = env.step(action)
             done = terminated or truncated
+            steps += 1
+        sep = ' → ' if action_names else ', '
+        actions = sep.join(action_list)
         return pi_star, actions
-    
-    def pi_star(self):
-        """Política óptima greedy a partir de Q aprendida. Delega en pi_star_from_Q."""
-        return self.__pi_star_from_Q__(self.q_values)
+
+    def pi_star(self, seed=None, max_steps=None, action_names=None):
+        """
+        Política óptima greedy a partir de Q aprendida.
+        :param seed: semilla para env.reset() (necesario en entornos con estado inicial aleatorio, e.g. Taxi-v3).
+        :param max_steps: límite de pasos para evitar bucles infinitos si Q no ha convergido.
+        :param action_names: dict {int: str} para nombres legibles de acciones (e.g. {0: 'S↓', ...}).
+        """
+        return self.__pi_star_from_Q__(self.q_values, seed=seed, max_steps=max_steps, action_names=action_names)
     
     def stats(self):
         """

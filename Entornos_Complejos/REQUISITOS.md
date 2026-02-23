@@ -42,8 +42,9 @@ El objetivo es estudiar algoritmos de RL en entornos complejos usando **Gymnasiu
 
 | Algoritmo | Tipo | Estado |
 |-----------|------|--------|
-| Monte Carlo on-policy | Tabular | ✅ hecho (MonteCarloTodasLasVisitas.ipynb) |
-| Monte Carlo off-policy | Tabular | ✅ hecho (MonteCarloOffPolicy.ipynb) |
+| Monte Carlo on-policy | Tabular | ✅ hecho (MonteCarloTodasLasVisitas.ipynb + MonteCarlo_experiment.ipynb) |
+| Monte Carlo off-policy | Tabular | ✅ hecho (MonteCarloOffPolicy.ipynb + MonteCarlo_experiment.ipynb) |
+| Comparativa MC on vs off-policy | Tabular | ✅ hecho (MonteCarlo_experiment.ipynb, Taxi-v3) |
 | SARSA | TD tabular | ⬜ pendiente |
 | Q-Learning | TD tabular | ⬜ pendiente |
 
