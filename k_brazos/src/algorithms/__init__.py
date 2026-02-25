@@ -15,10 +15,11 @@ For more details about GPL-3.0: https://www.gnu.org/licenses/gpl-3.0.html
 # Importación de módulos o clases
 from .algorithm import Algorithm
 from .epsilon_greedy import EpsilonGreedy
+from .epsilon_greedy_with_initialization import EpsilonGreedyinitialization
 from .softmax import Softmax
 from .ucb1 import UCB1
 from .epsilon_decaimiento import EpsilonDecaimiento
 
 # Lista de módulos o clases públicas
-__all__ = ['Algorithm', 'EpsilonGreedy', 'EpsilonDecaimiento', 'Softmax', 'UCB1']
+__all__ = ['Algorithm', 'EpsilonGreedy', 'EpsilonGreedyinitialization', 'EpsilonDecaimiento', 'Softmax', 'UCB1']
 

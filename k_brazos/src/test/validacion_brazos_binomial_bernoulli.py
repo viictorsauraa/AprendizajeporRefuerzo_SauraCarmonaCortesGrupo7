@@ -43,9 +43,9 @@ def ejemplo_binomial_delivery():
     print("Promociones configuradas (tasas reales desconocidas para el agente):")
     for nombre, arm in promociones.items():
         print(f"  {nombre}")
-        print(f"    → Distribución: {arm}")
-        print(f"    → E[usuarios convertidos] = {arm.get_expected_value():.1f} de 100")
-        print(f"    → Tasa de conversión real: p = {arm.p:.2%}")
+        print(f"    -> Distribución: {arm}")
+        print(f"    -> E[usuarios convertidos] = {arm.get_expected_value():.1f} de 100")
+        print(f"    -> Tasa de conversión real: p = {arm.p:.2%}")
     print()
     
     # Simular 10 días de operación
@@ -69,7 +69,7 @@ def ejemplo_binomial_delivery():
         print(f"  Total en 10 días: {sum(recompensas_diarias)} usuarios")
     
     print()
-    print("✓ VALIDACIÓN: La implementación ArmBinomial cumple correctamente")
+    print("VALIDACIÓN: La implementación ArmBinomial cumple correctamente")
     print("  - n=100 representa el lote de usuarios")
     print("  - p representa la tasa de conversión desconocida")
     print("  - pull() retorna el número de éxitos (usuarios que usaron la promoción)")
@@ -107,9 +107,9 @@ def ejemplo_bernoulli_publicidad():
     print("Anuncios configurados (CTR real desconocido para el agente):")
     for nombre, arm in anuncios.items():
         print(f"  {nombre}")
-        print(f"    → Distribución: {arm}")
-        print(f"    → CTR real: p = {arm.p:.2%}")
-        print(f"    → E[clic] = {arm.get_expected_value():.3f}")
+        print(f"    -> Distribución: {arm}")
+        print(f"    -> CTR real: p = {arm.p:.2%}")
+        print(f"    -> E[clic] = {arm.get_expected_value():.3f}")
     print()
     
     # Simular 100 impresiones por anuncio
@@ -143,7 +143,7 @@ def ejemplo_bernoulli_publicidad():
         print(f"  Error: {abs(ctr_observado - arm.p):.2%}")
     
     print()
-    print("✓ VALIDACIÓN: La implementación ArmBernoulli cumple correctamente")
+    print("VALIDACIÓN: La implementación ArmBernoulli cumple correctamente")
     print("  - Cada pull() representa una impresión de anuncio")
     print("  - Retorna 1 (clic) o 0 (no clic)")
     print("  - p representa el CTR real desconocido")
@@ -176,12 +176,12 @@ def validacion_propiedades_matematicas():
     
     print(f"  Valor esperado teórico: μ = np = {mu_teorico}")
     print(f"  Valor esperado implementado: {arm_binom.get_expected_value()}")
-    print(f"  ✓ Coinciden: {arm_binom.get_expected_value() == mu_teorico}")
+    print(f"  Coinciden: {arm_binom.get_expected_value() == mu_teorico}")
     print()
     
     print(f"  Varianza teórica: σ² = np(1-p) = {var_teorica}")
     print(f"  Varianza implementada: {arm_binom.get_variance()}")
-    print(f"  ✓ Coinciden: {arm_binom.get_variance() == var_teorica}")
+    print(f"  Coinciden: {arm_binom.get_variance() == var_teorica}")
     print()
     
     # Simulación empírica
@@ -193,8 +193,8 @@ def validacion_propiedades_matematicas():
     print(f"  Simulación con {n_simulaciones} muestras:")
     print(f"    Media empírica: {mu_empirico:.2f} (esperado: {mu_teorico})")
     print(f"    Varianza empírica: {var_empirica:.2f} (esperada: {var_teorica:.2f})")
-    print(f"    ✓ Error media: {abs(mu_empirico - mu_teorico):.3f}")
-    print(f"    ✓ Error varianza: {abs(var_empirica - var_teorica):.3f}")
+    print(f"    Error media: {abs(mu_empirico - mu_teorico):.3f}")
+    print(f"    Error varianza: {abs(var_empirica - var_teorica):.3f}")
     print()
     
     # Validación Bernoulli
@@ -208,12 +208,12 @@ def validacion_propiedades_matematicas():
     
     print(f"  Valor esperado teórico: μ = p = {mu_teorico}")
     print(f"  Valor esperado implementado: {arm_bern.get_expected_value()}")
-    print(f"  ✓ Coinciden: {arm_bern.get_expected_value() == mu_teorico}")
+    print(f"  Coinciden: {arm_bern.get_expected_value() == mu_teorico}")
     print()
     
     print(f"  Varianza teórica: σ² = p(1-p) = {var_teorica}")
     print(f"  Varianza implementada: {arm_bern.get_variance()}")
-    print(f"  ✓ Coinciden: {arm_bern.get_variance() == var_teorica}")
+    print(f"  Coinciden: {arm_bern.get_variance() == var_teorica}")
     print()
     
     # Simulación empírica
@@ -224,8 +224,8 @@ def validacion_propiedades_matematicas():
     print(f"  Simulación con {n_simulaciones} muestras:")
     print(f"    Media empírica: {mu_empirico:.3f} (esperado: {mu_teorico})")
     print(f"    Varianza empírica: {var_empirica:.3f} (esperada: {var_teorica:.3f})")
-    print(f"    ✓ Error media: {abs(mu_empirico - mu_teorico):.4f}")
-    print(f"    ✓ Error varianza: {abs(var_empirica - var_teorica):.4f}")
+    print(f"    Error media: {abs(mu_empirico - mu_teorico):.4f}")
+    print(f"    Error varianza: {abs(var_empirica - var_teorica):.4f}")
     print()
     
     # Validación: Bernoulli es Binomial con n=1
@@ -237,12 +237,12 @@ def validacion_propiedades_matematicas():
     
     print(f"  ArmBernoulli(p={p}): E[X] = {arm_bern.get_expected_value()}")
     print(f"  ArmBinomial(n=1, p={p}): E[X] = {arm_binom_n1.get_expected_value()}")
-    print(f"  ✓ Valores esperados coinciden")
+    print(f"  Valores esperados coinciden")
     print()
     
     print(f"  ArmBernoulli(p={p}): Var[X] = {arm_bern.get_variance()}")
     print(f"  ArmBinomial(n=1, p={p}): Var[X] = {arm_binom_n1.get_variance()}")
-    print(f"  ✓ Varianzas coinciden")
+    print(f"  Varianzas coinciden")
     print()
 
 
@@ -273,23 +273,8 @@ def main():
     print("CONCLUSIÓN")
     print("=" * 80)
     print()
-    print("✓ Las implementaciones ArmBinomial y ArmBernoulli cumplen correctamente")
+    print("Las implementaciones ArmBinomial y ArmBernoulli cumplen correctamente")
     print("  con los ejemplos reales de la sección 5.1:")
-    print()
-    print("  1. ArmBinomial:")
-    print("     - Modela correctamente lotes de n usuarios/eventos")
-    print("     - Retorna el número de éxitos en n ensayos")
-    print("     - Perfecto para: promociones por lotes, testing A/B agrupado")
-    print()
-    print("  2. ArmBernoulli:")
-    print("     - Modela correctamente eventos individuales binarios")
-    print("     - Retorna 0 (fracaso) o 1 (éxito)")
-    print("     - Perfecto para: clics en anuncios, conversiones individuales")
-    print()
-    print("  3. Propiedades matemáticas verificadas:")
-    print("     - Valores esperados correctos")
-    print("     - Varianzas correctas")
-    print("     - Bernoulli ≡ Binomial(n=1, p)")
     print()
 
 

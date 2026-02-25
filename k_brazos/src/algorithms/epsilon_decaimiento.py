@@ -51,23 +51,32 @@ class EpsilonDecaimiento(Algorithm):
 
         :return: índice del brazo seleccionado.
         """
+        # Inicialización: seleccionar cada brazo al menos una vez antes de aplicar la política.
+        unvisited = np.where(self.counts == 0)[0]
+        if len(unvisited) > 0:
+            return int(np.random.choice(unvisited))
 
         epsilon_t = max(self.epsilon_min, self._calculate_decay())
 
-        # Observa que para para epsilon=0 solo selecciona un brazo y no hace un primer recorrido por todos ellos.
-        # ¿Podrías modificar el código para que funcione correctamente para epsilon=0?
-
         if np.random.random() < epsilon_t:
-            # Selecciona un brazo al azar
+            # Exploración: selecciona un brazo al azar
             chosen_arm = np.random.choice(self.k)
         else:
-            # Selecciona el brazo con la recompensa promedio estimada más alta.
-            # En caso de empate (p.e. al inicio con todos Q(a)=0) se rompe aleatoriamente,
-            # lo que garantiza que epsilon=0 no quede anclado siempre en el brazo 0.
+            # Explotación: selecciona el brazo con la recompensa promedio estimada más alta.
+            # En caso de empate se rompe aleatoriamente.
             max_value = np.max(self.values)
             max_arms = np.where(self.values == max_value)[0]
             chosen_arm = np.random.choice(max_arms)
-        
+
         self.t += 1
 
         return chosen_arm
+
+    def reset(self):
+        """
+        Reinicia el estado del algoritmo, incluyendo el contador de tiempo t.
+        Necesario para que el decaimiento de epsilon empiece desde cero en cada run.
+        """
+        super().reset()
+        self.t = 0
+        self.epsilon = self.epsilon_initial

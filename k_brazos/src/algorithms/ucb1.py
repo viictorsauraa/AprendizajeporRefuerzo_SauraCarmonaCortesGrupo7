@@ -33,10 +33,11 @@ class UCB1(Algorithm):
 
         :return: Índice del brazo seleccionado.
         """
-        # Primer recorrido: seleccionar brazos no visitados antes de calcular UCB1
+        # Primer recorrido: seleccionar brazos no visitados antes de calcular UCB1.
+        # Se elige aleatoriamente entre los no visitados para evitar sesgo de orden.
         unvisited = np.where(self.counts == 0)[0]
         if len(unvisited) > 0:
-            return unvisited[0]
+            return int(np.random.choice(unvisited))
 
         # Número total de pasos realizados
         t = int(np.sum(self.counts))
