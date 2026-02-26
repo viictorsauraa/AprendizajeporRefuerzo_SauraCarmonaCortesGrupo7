@@ -18,6 +18,25 @@ def plot(list_stats, title='Proporción de recompensas', ylabel='Proporción'):
     plt.grid(True)
     plt.show()
 
+def plot_comparison(list_of_stats, labels, title='Comparativa de Algoritmos', ylabel='Recompensa Media'):
+    """
+    Grafica múltiples series de datos para comparar su evolución.
+    :param list_of_stats: Lista que contiene las listas de estadísticas (ej. [stats_sarsa, stats_mc])
+    :param labels: Lista con los nombres para la leyenda (ej. ['SARSA', 'Monte Carlo'])
+    """
+    plt.figure(figsize=(10, 5))
+    
+    for stats, label in zip(list_of_stats, labels):
+        indices = list(range(len(stats)))
+        plt.plot(indices, stats, label=label)
+    
+    plt.title(title)
+    plt.xlabel('Episodio')
+    plt.ylabel(ylabel)
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.legend() # Muestra la leyenda con los nombres de los algoritmos
+    plt.show()
+
 
 def plot_lengths(list_lengths, window=500):
     """Longitud de los episodios con curva de tendencia (media móvil)."""
@@ -36,6 +55,41 @@ def plot_lengths(list_lengths, window=500):
     plt.ylabel('Número de pasos')
     plt.legend()
     plt.grid(True)
+    plt.show()
+
+def plot_lengths_comparison(list_of_lengths, labels, window=500):
+    """
+    Compara la longitud de los episodios de varios agentes con sus 
+    respectivas curvas de tendencia (media móvil).
+    
+    :param list_of_lengths: Lista de listas con las longitudes (ej. [len_sarsa, len_mc])
+    :param labels: Etiquetas para la leyenda (ej. ['SARSA', 'Monte Carlo'])
+    :param window: Ventana para el cálculo de la media móvil.
+    """
+    plt.figure(figsize=(10, 5))
+    
+    # Definir una paleta de colores para diferenciar las tendencias
+    colors = ['crimson', 'teal', 'darkorange', 'purple']
+    
+    for i, (lengths, label) in enumerate(zip(list_of_lengths, labels)):
+        n = len(lengths)
+        current_window = min(window, max(1, n // 10))
+        color = colors[i % len(colors)]
+        
+        # Graficar los datos crudos con mucha transparencia (alpha bajo) para no saturar
+        plt.plot(lengths, alpha=0.15, color=color, linewidth=0.5)
+        
+        # Calcular y graficar la media móvil (Tendencia)
+        if n >= current_window and current_window > 1:
+            moving_avg = np.convolve(lengths, np.ones(current_window) / current_window, mode='valid')
+            plt.plot(range(current_window - 1, n), moving_avg,
+                     color=color, linewidth=2, label=f'Tendencia {label}')
+    
+    plt.title('Comparativa: Eficiencia en pasos por episodio')
+    plt.xlabel('Episodio')
+    plt.ylabel('Número de pasos')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.5)
     plt.show()
 
 
