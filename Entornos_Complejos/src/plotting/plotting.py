@@ -99,6 +99,40 @@ def show_greedy_episode(env, Q, max_steps=200, seed=None, title="Episodio greedy
     print("Estado final:")
     print(final_frame)
 
+def plot_policy_taxi(env, Q, passenger_loc, destination_idx):
+    """
+    Dibuja un mapa de 5x5 con la mejor acción para cada celda
+    dado un estado del pasajero y un destino, y muestra la 
+    representación visual inicial del entorno.
+    """
+    # 1. Configurar el entorno en el estado específico para obtener el renderizado visual
+    # El taxi se coloca por defecto en (0,0) para la visualización inicial del mapa
+    initial_state = env.unwrapped.encode(0, 0, passenger_loc, destination_idx)
+    env.unwrapped.s = initial_state
+    
+    # 2. Mostrar el renderizado ANSI del estado (Mapa visual)
+    print(f"\nEstado Inicial del Entorno (Pasajero: {passenger_loc}, Destino: {destination_idx}):")
+    print(env.render())
+
+    # 3. Dibujar el Mapa de Política con flechas
+    # Mapeo de acciones a símbolos: 0: Sur, 1: Norte, 2: Este, 3: Oeste, 4: Pickup, 5: Dropoff
+    symbols = {0: " ↓ ", 1: " ↑ ", 2: " → ", 3: " ← ", 4: " P ", 5: " D "}
+    
+    print(f"Mapa de Política (Mejor acción por celda):")
+    print("-" * 25)
+    
+    for row in range(5):
+        row_str = "|"
+        for col in range(5):
+            # Codificamos el estado para cada posición posible del taxi
+            state = env.unwrapped.encode(row, col, passenger_loc, destination_idx)
+            
+            # Buscamos la mejor acción según la tabla Q
+            best_action = np.argmax(Q[state])
+            row_str += symbols[best_action] + "|"
+        print(row_str)
+    print("-" * 25)
+
 
 def print_q_summary(env, Q, title="Resumen tabla Q"):
     """
