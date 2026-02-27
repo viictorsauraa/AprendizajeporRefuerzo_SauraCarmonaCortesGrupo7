@@ -5,6 +5,7 @@ Description: Contiene funciones para generar gráficas de resultados de entrenam
 
 import matplotlib.pyplot as plt
 import numpy as np
+import imageio
 
 
 def plot(list_stats, title='Proporción de recompensas', ylabel='Proporción'):
@@ -153,6 +154,67 @@ def show_greedy_episode(env, Q, max_steps=200, seed=None, title="Episodio greedy
     print("Estado final:")
     print(final_frame)
 
+def show_greedy_episode_qnet(env, agent, max_steps=500):
+    """
+    Ejecuta un episodio usando la política greedy y captura los fotogramas.
+
+    Parámetros:
+      - env: Entorno Gymnasium configurado con render_mode='rgb_array'.
+      - agent: Agente entrenado con una red neuronal Q.
+      - max_steps (int): Número máximo de pasos a ejecutar en el episodio.
+
+    Retorna:
+      - list: Lista de fotogramas (imágenes) capturados durante el episodio.
+    """
+    frames = []  # Lista para almacenar cada fotograma.
+    agent.epsilon = 0  # Aseguramos que el agente actúe de forma completamente greedy.
+
+    q_network = agent.network  # Acceder a la red neuronal del agente
+
+    # Reiniciar el entorno y obtener el estado inicial.
+    state, _ = env.reset()
+    done = False  # Indicador de finalización del episodio.
+
+    # Ejecutar el episodio hasta max_steps o hasta que el entorno indique que ha terminado.
+    for _ in range(max_steps):
+        # Capturar el fotograma actual del entorno.
+        frame = env.render()
+        frames.append(frame)
+
+        # Seleccionar la acción óptima utilizando la función greedy.
+        action = agent.get_action(state)  # Esto usará la política greedy debido a epsilon=0
+
+        # Ejecutar la acción en el entorno y obtener el siguiente estado y otros datos.
+        next_state, reward, done, truncated, info = env.step(action)
+        state = next_state  # Actualizar el estado.
+
+        # Si el episodio ha terminado o se ha truncado, capturar el fotograma final y salir.
+        if done or truncated:
+            frames.append(env.render())
+            break
+
+    return frames
+
+
+def frames_to_gif(frames, filename="lunar_landing_sarsa_sg.gif"):
+    """
+    Crea un archivo GIF a partir de una lista de fotogramas.
+
+    Parámetros:
+      - frames (list): Lista de fotogramas (imágenes) capturados del entorno.
+      - filename (str): Nombre del archivo GIF resultante.
+
+    Retorna:
+      - str: Nombre del archivo GIF creado.
+    """
+    # Abrir un escritor de GIF con imageio.
+    with imageio.get_writer(filename, mode='I') as writer:
+        # Agregar cada fotograma al GIF.
+        for frame in frames:
+            writer.append_data(frame)
+    return filename
+     
+
 def plot_policy_taxi(env, Q, passenger_loc, destination_idx):
     """
     Dibuja un mapa de 5x5 con la mejor acción para cada celda
@@ -218,3 +280,14 @@ def print_q_summary(env, Q, title="Resumen tabla Q"):
                   f"-> mejor={action_labels[best]} Q={q.round(2)}")
     except (AttributeError, TypeError):
         pass
+
+def plot_losses(list_losses, title='Evolución de la pérdida (Loss)'):
+    """Gráfica de la evolución de la pérdida durante el entrenamiento."""
+    indices = list(range(len(list_losses)))
+    plt.figure(figsize=(8, 3))
+    plt.plot(indices, list_losses, color='orange')
+    plt.title(title)
+    plt.xlabel('Paso de entrenamiento')
+    plt.ylabel('Pérdida (Loss)')
+    plt.grid(True)
+    plt.show()
