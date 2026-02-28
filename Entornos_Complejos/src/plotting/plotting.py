@@ -281,13 +281,29 @@ def print_q_summary(env, Q, title="Resumen tabla Q"):
     except (AttributeError, TypeError):
         pass
 
-def plot_losses(list_losses, title='Evolución de la pérdida (Loss)'):
-    """Gráfica de la evolución de la pérdida durante el entrenamiento."""
-    indices = list(range(len(list_losses)))
-    plt.figure(figsize=(8, 3))
-    plt.plot(indices, list_losses, color='orange')
+def plot_losses(list_losses, window=1000, title='Evolución de la pérdida (Loss)'):
+    """Gráfica de la evolución de la pérdida con media móvil y escala logarítmica."""
+    n = len(list_losses)
+    # Ajustamos la ventana para que tenga sentido según el volumen de datos
+    window = min(window, max(1, n // 50))
+    
+    plt.figure(figsize=(10, 4))
+    
+    plt.plot(list_losses, alpha=0.15, color='orange', label='Pérdida (paso a paso)')
+    
+    if n >= window and window > 1:
+        moving_avg = np.convolve(list_losses, np.ones(window) / window, mode='valid')
+        plt.plot(range(window - 1, n), moving_avg, 
+                 color='darkred', linewidth=1.5, 
+                 label=f'Tendencia (media móvil, ventana={window})')
+    
+   
+    # log permite ver qué pasa en los valores pequeños sin que los picos grandes lo tapen todo.
+    plt.yscale('log') 
+    
     plt.title(title)
-    plt.xlabel('Paso de entrenamiento')
-    plt.ylabel('Pérdida (Loss)')
-    plt.grid(True)
+    plt.xlabel('Paso de entrenamiento (Step)')
+    plt.ylabel('Pérdida (Loss) - Escala Log')
+    plt.legend()
+    plt.grid(True, which="both", ls="-", alpha=0.2) # Cuadrícula especial para log
     plt.show()
