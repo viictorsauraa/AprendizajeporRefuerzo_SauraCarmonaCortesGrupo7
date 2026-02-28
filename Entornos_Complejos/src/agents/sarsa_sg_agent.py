@@ -44,7 +44,7 @@ class DQN_Network(nn.Module):
 
 class SARSASGAgent(GymnasiumAgent):
 
-    def __init__(self, env: gym.Env, epsilon: float, discount_factor: float, decay: bool, alpha: float, weights_path=None):
+    def __init__(self, env: gym.Env, epsilon: float, discount_factor: float, decay: bool, alpha: float, weights_path=None, hidden_size=64, num_hidden_layers=2, use_cpu = True):
         """
         Inicializa el agente SARSA con un entorno de Gymnasium.
         :param alpha: Tasa de aprendizaje para la actualización de valores Q.
@@ -54,9 +54,10 @@ class SARSASGAgent(GymnasiumAgent):
         self.discount_factor = discount_factor
         self.decay = decay
 
-        
+        self.device = torch.device("cuda" if torch.cuda.is_available() and not use_cpu else "cpu")
+        print(f"Entrenando en: {self.device}")
         self.alpha = alpha
-        self.network = DQN_Network(env.action_space.n, env.observation_space.shape[0])
+        self.network = DQN_Network(env.action_space.n, env.observation_space.shape[0], hidden_size=hidden_size, num_hidden_layers=num_hidden_layers).to(self.device)
         if weights_path is not None:
             self.network.load_state_dict(torch.load(weights_path))
         self.optimizer = torch.optim.Adam(self.network.parameters(), lr=alpha)
@@ -77,7 +78,8 @@ class SARSASGAgent(GymnasiumAgent):
         if np.random.rand() < self.epsilon:
             return self.env.action_space.sample()
         else:
-            obs_tensor = torch.FloatTensor(obs).unsqueeze(0)  # Agregar dimensión de lote
+            # Convertimos y enviamos a la GPU en un solo paso
+            obs_tensor = torch.as_tensor(obs, dtype=torch.float32, device=self.device).unsqueeze(0)
             with torch.no_grad():
                 q_values = self.network(obs_tensor)
             best_action = torch.argmax(q_values).item()
@@ -88,8 +90,8 @@ class SARSASGAgent(GymnasiumAgent):
         Actualiza los valores Q usando la regla de actualización SARSA semi gradiente.
         """
         # Convertimos estados a tensores
-        s_t = torch.FloatTensor(obs)
-        s_next_t = torch.FloatTensor(next_obs)
+        s_t = torch.as_tensor(obs, dtype=torch.float32, device=self.device)
+        s_next_t = torch.as_tensor(next_obs, dtype=torch.float32, device=self.device)
 
         # calculamos q^(St, At, wt)
 
@@ -100,7 +102,7 @@ class SARSASGAgent(GymnasiumAgent):
         # Usamos no_grad() porque es sarsa semigradiente: el objetivo se trata como constante
         with torch.no_grad(): 
             if terminated or truncated:
-                target_u = torch.tensor(reward, dtype=torch.float32) # Ut = Rt+1
+                target_u = torch.tensor(reward, dtype=torch.float32, device=self.device) # Ut = Rt+1
             else:
                 q_next = self.network(s_next_t)
                 target_u = reward + self.discount_factor * q_next[next_action] # Ut = Rt+1 + γ * q^(St+1, At+1, wt)
@@ -121,6 +123,7 @@ class SARSASGAgent(GymnasiumAgent):
         self.list_losses.append(loss.item())
     def train(self, num_episodes):
         env = self.env
+        env.reset(seed=2024)
         for t in tqdm(range(num_episodes)):
             obs, info = env.reset()
 
@@ -148,8 +151,7 @@ class SARSASGAgent(GymnasiumAgent):
                 episode_length += 1
             
             if self.decay:
-                # 0.9977 hace que llegue a 0.01 en el episodio 2000
-                self.epsilon = max(0.01, self.epsilon * 0.9977) # Cambiamos formula de dacay para que se adapte a tener menos episodios
+                self.epsilon = max(0.01, self.epsilon * 0.995) # Cambiamos formula de dacay para que se adapte a tener menos episodios
 
             self.update_stats(episode_reward, episode_length)
 

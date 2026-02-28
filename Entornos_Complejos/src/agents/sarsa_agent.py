@@ -39,6 +39,7 @@ class SARSAAgent(GymnasiumAgent):
         Entrena al agente durante un número específico de episodios utilizando el algoritmo SARSA.
         """
         env = self.env
+        env.reset(seed=2024)
 
         for t in tqdm(range(num_episodes)):
             # Reiniciar el entorno al inicio de cada episodio
