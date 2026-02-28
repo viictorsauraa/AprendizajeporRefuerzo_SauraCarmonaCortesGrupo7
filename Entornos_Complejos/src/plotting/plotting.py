@@ -226,9 +226,17 @@ def plot_policy_taxi(env, Q, passenger_loc, destination_idx):
     initial_state = env.unwrapped.encode(0, 0, passenger_loc, destination_idx)
     env.unwrapped.s = initial_state
     
-    # 2. Mostrar el renderizado ANSI del estado (Mapa visual)
+    # 2. Mostrar el estado inicial como imagen
+    frame = env.render()
     print(f"\nEstado Inicial del Entorno (Pasajero: {passenger_loc}, Destino: {destination_idx}):")
-    print(env.render())
+    if isinstance(frame, np.ndarray):
+        plt.figure(figsize=(3, 3))
+        plt.imshow(frame)
+        plt.axis('off')
+        plt.tight_layout()
+        plt.show()
+    else:
+        print(frame)
 
     # 3. Dibujar el Mapa de Política con flechas
     # Mapeo de acciones a símbolos: 0: Sur, 1: Norte, 2: Este, 3: Oeste, 4: Pickup, 5: Dropoff
@@ -280,6 +288,36 @@ def print_q_summary(env, Q, title="Resumen tabla Q"):
                   f"-> mejor={action_labels[best]} Q={q.round(2)}")
     except (AttributeError, TypeError):
         pass
+
+def show_greedy_episode_img(env, Q, max_steps=200, seed=None, title="Episodio greedy"):
+    """
+    Ejecuta un episodio con la política greedy (argmax Q) y muestra el estado
+    inicial y el estado final como imágenes (requiere render_mode='rgb_array').
+    """
+    state, info = env.reset(seed=seed) if seed is not None else env.reset()
+    initial_frame = env.render()
+    done = False
+    total_reward = 0
+    steps = 0
+    while not done and steps < max_steps:
+        action = np.argmax(Q[state])
+        state, reward, terminated, truncated, info = env.step(action)
+        total_reward += reward
+        steps += 1
+        done = terminated or truncated
+    final_frame = env.render()
+    status = 'Éxito' if (done and total_reward > -steps) else ('Truncado' if not done else 'Terminado')
+    fig, axes = plt.subplots(1, 2, figsize=(6, 3))
+    axes[0].imshow(initial_frame)
+    axes[0].set_title('Estado inicial')
+    axes[0].axis('off')
+    axes[1].imshow(final_frame)
+    axes[1].set_title(f'Estado final ({status})')
+    axes[1].axis('off')
+    fig.suptitle(f"{title}  |  Recompensa: {total_reward:.0f}  |  Pasos: {steps}")
+    plt.tight_layout()
+    plt.show()
+
 
 def plot_losses(list_losses, title='Evolución de la pérdida (Loss)'):
     """Gráfica de la evolución de la pérdida durante el entrenamiento."""
