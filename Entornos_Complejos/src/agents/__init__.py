@@ -11,7 +11,8 @@ from .monte_carlo_off_policy_agent import MonteCarloOffPolicyAgent
 from .sarsa_agent import SARSAAgent
 from .sarsa_sg_agent import SARSASGAgent
 from .q_learning_agent import QLearningAgent
+from .dqn_agent import DQNAgent
 
 # Lista de módulos o clases públicas
-__all__ = ['GymnasiumAgent', 'MonteCarloOnPolicyAgent', 'MonteCarloOffPolicyAgent', 'SARSAAgent', 'SARSASGAgent', 'QLearningAgent']
+__all__ = ['GymnasiumAgent', 'MonteCarloOnPolicyAgent', 'MonteCarloOffPolicyAgent', 'SARSAAgent', 'SARSASGAgent', 'QLearningAgent', 'DQNAgent']
 
