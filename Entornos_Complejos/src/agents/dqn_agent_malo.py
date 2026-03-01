@@ -12,7 +12,6 @@ from agents.gymnasium_agent import GymnasiumAgent
 from tqdm import tqdm
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 
 class ReplayBuffer:
@@ -133,12 +132,12 @@ class DQNAgent(GymnasiumAgent):
         1. Almacena la transición en el Replay Buffer.
         2. Si el buffer tiene suficientes muestras, samplea un minibatch.
         3. Calcula el target y = r + gamma * max_a Q(s', a; w-) con la Target Network.
-        4. Calcula Q(s, a; w) con la Red Principal y la loss de Huber (Smooth L1).
-        5. Realiza un paso de optimización (con recortes de gradiente) para actualizar los pesos w.
+        4. Calcula Q(s, a; w) con la Red Principal y la loss MSE.
+        5. Realiza un paso de optimización para actualizar los pesos w.
         6. Cada target_update_freq pasos copia w- <- w.
         """
-        # Almacenamos la transición en el Replay Buffer (¡Solo usamos terminated para Bellman!)
-        self.replay_buffer.store(obs, action, reward, next_obs, terminated)
+        # Almacenamos la transición en el Replay Buffer
+        self.replay_buffer.store(obs, action, reward, next_obs, terminated or truncated)
 
         # Solo actualizamos si tenemos suficientes muestras para un minibatch
         if len(self.replay_buffer) < self.batch_size:
@@ -156,8 +155,8 @@ class DQNAgent(GymnasiumAgent):
         # Calculamos el target y = r + gamma * max_a Q(s', a; w-) con la Target Network
         with torch.no_grad():
             # max_a Q(next_obs, a; w-) usando la Target Network
-            q_targets = self.target_network(next_obs_batch)      # Q para las acciones posibles
-            max_q_targets = q_targets.max(dim=1).values          # max sobre las acciones
+            q_targets = self.target_network(next_obs_batch)      # Q para las 4 acciones
+            max_q_targets = q_targets.max(dim=1).values          # max sobre las 4 acciones
             # r si es done, sino r + gamma * max_a Q(next_obs, a; w-)
             y = reward_batch + (1.0 - done_batch) * self.discount_factor * max_q_targets
 
@@ -165,16 +164,11 @@ class DQNAgent(GymnasiumAgent):
         q_values = self.network(obs_batch)
         q_values = q_values.gather(dim=1, index=action_batch.unsqueeze(1))
 
-        # Calculamos la pérdida (Huber Loss / Smooth L1 entre Q(s, a; w) y el target Q(s', a; w-))
-        loss = F.smooth_l1_loss(q_values.squeeze(1), y)
-        
+        # Calculamos la pérdida (MSE entre Q(s, a; w) y el target Q(s', a; w-))
+        loss = torch.mean((q_values.squeeze(1) - y) ** 2)
         # Actualizamos los parámetros de la red principal
         self.optimizer.zero_grad()
         loss.backward()
-        
-        # Recortamos los gradientes (Gradient Clipping) para evitar que exploten
-        torch.nn.utils.clip_grad_value_(self.network.parameters(), 100)
-        
         self.optimizer.step()
         self.list_losses.append(loss.item())
 
@@ -206,8 +200,7 @@ class DQNAgent(GymnasiumAgent):
                 episode_length += 1
 
             if self.decay:
-                # Decaimiento más suave para explorar durante más tiempo (0.999 en lugar de 0.995)
-                self.epsilon = max(0.01, self.epsilon * 0.999)
+                self.epsilon = max(0.01, self.epsilon * 0.995)
 
             self.update_stats(episode_reward, episode_length)
 
@@ -231,3 +224,4 @@ class DQNAgent(GymnasiumAgent):
         :param path: Ruta del archivo donde se guardará el modelo.
         """
         torch.save(self.network.state_dict(), path)
+
