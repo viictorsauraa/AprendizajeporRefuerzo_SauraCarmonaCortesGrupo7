@@ -29,7 +29,12 @@ Víctor Saura Meseguer 	\\
 \input{resumen}
 
 % Índice
+\begingroup
+\renewcommand{\thispagestyle}[1]{}  % evitar que \chapter* sobreescriba el estilo
+\pagestyle{empty}
 \tableofcontents
+\endgroup
+\setcounter{page}{1}
 
 % Trabajos
 \input{bandido}

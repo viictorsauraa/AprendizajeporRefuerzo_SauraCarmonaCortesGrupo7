@@ -63,7 +63,7 @@ Cuando no se conoce el modelo de transiciones $\mathcal{P}$ ni la función de re
 \begin{itemize}
     \item \textbf{Métodos de Monte Carlo (MC):} Requieren que el episodio termine para calcular el retorno real $G_t$ y actualizar el valor de los estados visitados. Son métodos de alta varianza pero sin sesgo.
     \item \textbf{Métodos de Diferencias Temporales (TD):} Combinan ideas de MC y Programación Dinámica. Actualizan las estimaciones basándose en otras estimaciones parciales (bootstrapping) paso a paso, sin esperar al final del episodio.
-    \item \textbf{Control con Aproximaciones:} Cuando el espacio de estados es inmenso o continuo, es imposible mantener una tabla $Q(s,a)$. Se opta por aproximar la función de valora  como un forma funcional parametrizada con un vector de pesos.
+    \item \textbf{Control con Aproximaciones:} Cuando el espacio de estados es inmenso o continuo, es imposible mantener una tabla $Q(s,a)$. Se opta por aproximar la función de valor como una forma funcional parametrizada con un vector de pesos.
 \end{itemize}
 
 Estos enfoques mejoran gradualmente la aplicabilidad del agente. Los métodos TD mejoran a MC en entornos largos o continuos al aprender paso a paso, mientras que los métodos aproximados (DQN) suponen el salto cualitativo definitivo para resolver tareas complejas inabarcables mediante técnicas tabulares. 
@@ -76,7 +76,7 @@ Este trabajo se diferencia de otros enfoques previos al alejarse de la mera rép
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Algoritmos}
 
-A continuación, se describen los algoritmos estudiados. Todos los agentes siguen la misma interfaz estructural basada en los métodos `get\_action(obs)` y `update(...)` típica de gymnasium. 
+A continuación, se describen los algoritmos estudiados. Todos los agentes siguen la misma interfaz estructural basada en los métodos \texttt{get\_action(obs)} y \texttt{update(...)} típica de gymnasium.
 
 \subsection*{Monte Carlo Control (Off-policy)}
 Este algoritmo separa la política que se está aprendiendo (objetivo, $\pi$) de la política que genera el comportamiento (comportamiento o behavior, $b$), permitiendo aprender una política determinista óptima a partir de datos generados por una política exploratoria $\varepsilon$-soft. La diferencia entre las dos políticas se corrige mediante muestreo por importancia ponderado.
@@ -180,6 +180,38 @@ A diferencia de los métodos tabulares, SARSA semi-gradiente utiliza una funció
 \end{algorithm}
 
 Este algoritmo permite manejar espacios de estado enormes o continuos al no depender de una tabla de valores $Q$.
+
+\subsection*{Deep Q-Learning (DQN) con Experience Replay}
+DQN extiende Q-Learning aproximando $q(s,a)$ con una red neuronal profunda $\hat{q}(s,a;\mathbf{w})$ que recibe el estado como entrada y devuelve los valores de todas las acciones posibles. Para estabilizar el aprendizaje utiliza \textit{Experience Replay} (muestreo aleatorio de transiciones almacenadas) y una \textit{Target Network} con parámetros congelados $\mathbf{w}^-$ que reduce la oscilación del target.
+
+\begin{algorithm}[!h]
+\caption{Deep Q-Learning con Experience Replay}\label{algo:dqn}
+\begin{algorithmic}[1]
+\State Inicializar memoria de repetición $D$ con capacidad $N$
+\State Inicializar red $Q$ con pesos aleatorios $\mathbf{w}$
+\State Inicializar red objetivo con $\mathbf{w}^- \gets \mathbf{w}$
+\For{cada episodio}
+    \State Inicializar estado $s_1$
+    \For{$t=1$ hasta $T$}
+        \State Con probabilidad $\epsilon$ elegir acción aleatoria; si no, $a_t=\arg\max_a \hat{q}(s_t,a;\mathbf{w})$
+        \State Ejecutar $a_t$, observar $r_t$, $s_{t+1}$ y $done$
+        \State Guardar $(s_t,a_t,r_t,s_{t+1},done)$ en $D$
+        \State Muestrear un minibatch aleatorio de $D$
+        \For{cada transición $(s_j,a_j,r_j,s_{j+1},done_j)$}
+            \If{$done_j$}
+                \State $y_j \gets r_j$
+            \Else
+                \State $y_j \gets r_j + \gamma \max_{a'} \hat{q}(s_{j+1},a';\mathbf{w}^-)$
+            \EndIf
+        \EndFor
+        \State Actualizar $\mathbf{w}$ con un paso de gradiente sobre $(y_j-\hat{q}(s_j,a_j;\mathbf{w}))^2$
+        \State Cada $C$ pasos: $\mathbf{w}^- \gets \mathbf{w}$
+    \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+DQN es off-policy y permite escalar Q-Learning a espacios de estados continuos o de alta dimensión, manteniendo el control mediante una política $\epsilon$-greedy sobre la red.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Evaluación/Experimentos}
@@ -234,18 +266,32 @@ Q-Learning & -4.47 & 13.06 \\
 \caption{Resultados en Taxi-v3 (100k episodios).}
 \end{table}
 
-Los métodos TD convergen en pocos miles de episodios, mientras que MC on-policy queda anclado en episodios largos. Q-Learning y SARSA terminan prácticamente empatados en Taxi-v3 (recompensa -4.47 vs -5.34 y longitud 13.06 vs 13.04), lo que indica que en este entorno la diferencia on/off-policy apenas se nota; la dinámica no penaliza de forma fuerte la exploración. Por eso, para analizar con más claridad esa diferencia, se evalúa después CliffWalking, donde el riesgo de caer introduce un contraste real entre ambos métodos. En Q-Learning, un $\epsilon$ fijo muy bajo (0.01) da recompensas positivas (6.31), mientras que $\gamma=0.05$ no aprende (longitud media 82.97 pasos). En SARSA ocurre algo similar: $\epsilon=0.01$ mejora el rendimiento (recompensa 6.26, 13.25 pasos) y $\gamma=0.25$ lo degrada claramente (recompensa -159.61, 112.51 pasos).
+Los métodos TD convergen en pocos miles de episodios, mientras que MC on-policy queda anclado en episodios largos, como se ve en la Figura~\ref{fig:taxi-pasos}. Q-Learning y SARSA terminan prácticamente empatados en Taxi-v3 (recompensa -4.47 vs -5.34 y longitud 13.06 vs 13.04), lo que indica que en este entorno la diferencia on/off-policy apenas se nota; la dinámica no penaliza de forma fuerte la exploración. Por eso, para analizar con más claridad esa diferencia, se evalúa después CliffWalking, donde el riesgo de caer introduce un contraste real entre ambos métodos. En Q-Learning, un $\epsilon$ fijo muy bajo (0.01) da recompensas positivas (6.31), mientras que $\gamma=0.05$ no aprende (longitud media 82.97 pasos) porque el descuento es tan fuerte que la recompensa final no se propaga hacia atrás, tal como muestran las curvas de la Figura~\ref{fig:taxi-qlearn-hypers}. En SARSA ocurre algo similar: $\epsilon=0.01$ mejora el rendimiento (recompensa 6.26, 13.25 pasos) y $\gamma=0.25$ lo degrada claramente (recompensa -159.61, 112.51 pasos) al reducir demasiado la importancia del retorno futuro, visible en la Figura~\ref{fig:taxi-sarsa-hypers}.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{imagenes/taxi_qlearning_hyper_combo.png}
+    \caption{Taxi-v3: Q-Learning con variaciones de $\alpha$, $\epsilon$ y $\gamma$.}
+    \label{fig:taxi-qlearn-hypers}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{imagenes/taxi_sarsa_hyper_combo.png}
+    \caption{Taxi-v3: SARSA con variaciones de $\alpha$, $\epsilon$ y $\gamma$.}
+    \label{fig:taxi-sarsa-hypers}
+\end{figure}
 
 La diferencia entre MC on-policy y off-policy es clara: con on-policy el agente mantiene mucha exploración y los episodios permanecen largos, mientras que off-policy puede seguir una política objetivo más greedy y reduce rápidamente la longitud. Esto se aprecia en la Figura~\ref{fig:taxi-pasos}, donde MC on-policy se estabiliza alrededor de 110–120 pasos, y MC off-policy cae a valores cercanos a 14–15 pasos, alineados con SARSA y Q-Learning.
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{imagenes/taxi_comparativa_recompensa.png}
     \caption{Taxi-v3: recompensa media por episodio (MC on/off, SARSA y Q-Learning).}
     \label{fig:taxi-recompensa}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{imagenes/taxi_comparativa_pasos.png}
     \caption{Taxi-v3: eficiencia en pasos por episodio (tendencias suavizadas).}
@@ -253,25 +299,27 @@ La diferencia entre MC on-policy y off-policy es clara: con on-policy el agente 
 \end{figure}
 
 \subsubsection*{CliffWalking-v1 (riesgo vs optimalidad)}
-Aquí se observa la diferencia on-policy/off-policy. Q-Learning converge a la ruta óptima (13 pasos) en el episodio greedy, mientras SARSA aprende la ruta segura (17 pasos). La media acumulada refleja muchas caídas iniciales:
+Aquí se observa la diferencia on-policy/off-policy. Q-Learning converge a la ruta óptima (13 pasos) en el episodio greedy, mientras SARSA aprende la ruta segura (17 pasos) porque, al ser on-policy, internaliza el riesgo de sus propias acciones exploratorias. La media acumulada refleja muchas caídas iniciales porque al explorar el agente cae con frecuencia al acantilado y recibe una penalización fuerte (-100), lo que mantiene la media muy negativa durante los primeros miles de episodios (Figura~\ref{fig:cliff-recompensa}):
 
 \begin{itemize}
     \item Q-Learning: recompensa media final -6845.23, longitud media 17.08 pasos.
     \item SARSA: recompensa media final -8025.64, longitud media 19.33 pasos.
 \end{itemize}
 
-Con $\epsilon=0.01$ ambos mejoran notablemente: Q-Learning se acerca a 13.36 pasos y SARSA a 15.19 pasos. En Q-Learning, $\gamma=0.05$ falla (longitud media $>180$ pasos).
+Con $\epsilon=0.01$ ambos mejoran notablemente: Q-Learning se acerca a 13.36 pasos y SARSA a 15.19 pasos. En Q-Learning, $\gamma=0.05$ falla (longitud media $>180$ pasos). La eficiencia en pasos durante el entrenamiento se compara en la Figura~\ref{fig:cliff-pasos}.
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{imagenes/cliff_comparativa_recompensa.png}
     \caption{CliffWalking-v1: recompensa media acumulada por episodio (SARSA vs Q-Learning).}
+    \label{fig:cliff-recompensa}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{imagenes/cliff_comparativa_pasos.png}
     \caption{CliffWalking-v1: eficiencia en pasos por episodio (SARSA vs Q-Learning).}
+    \label{fig:cliff-pasos}
 \end{figure}
 
 \subsubsection*{LunarLander-v3 (control aproximado)}
@@ -282,20 +330,43 @@ En el entorno continuo se requiere aproximación de función. Con los hiperpará
     \item DQN (base): recompensa media final 118.11, longitud media 206.23 pasos.
 \end{itemize}
 
-La sensibilidad de DQN a sus hiperparámetros es clara: con $C=50$ la loss explota y la recompensa cae a -493.42, mientras que $C=10000$ mejora ligeramente (129.99). En el barrido del buffer, la configuración base (50k) ronda 118 puntos, pero al reducirlo a 5k baja a 51.47 y con 1k se desploma a 18.60, evidenciando la necesidad de decorrelación temporal.
+La sensibilidad de DQN a sus hiperparámetros es clara: con $C=50$ la recompensa cae a -493.42, mientras que $C=10000$ mejora ligeramente (129.99), como se ve en la Figura~\ref{fig:lunar-dqn-target}. En el barrido del buffer (Figura~\ref{fig:lunar-dqn-buffer}), la configuración base (50k) ronda 118 puntos, pero al reducirlo a 5k baja a 51.47 y con 1k se desploma a 18.60, evidenciando la necesidad de decorrelación temporal.
 
-En SARSA-SG, el barrido de arquitectura también muestra diferencias: una red 128$\times$128 alcanza 173.93 con 265.23 pasos, mientras que una 16$\times$16 cae a 106.02 y 417.75 pasos, confirmando que la capacidad de la función aproximadora es crítica en LunarLander.
+En SARSA-SG, el barrido de arquitectura también muestra diferencias: una red 128$\times$128 alcanza 173.93 con 265.23 pasos, mientras que una 16$\times$16 cae a 106.02 y 417.75 pasos, confirmando que la capacidad de la función aproximadora es crítica en LunarLander (Figura~\ref{fig:lunar-sarsa-arch}). La comparación directa entre ambos métodos se muestra en las Figuras~\ref{fig:lunar-comp-recompensa} y~\ref{fig:lunar-comp-pasos}.
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{imagenes/lunar_dqn_buffer_combo.png}
+    \caption{LunarLander-v3: DQN — efecto del tamaño del Replay Buffer.}
+    \label{fig:lunar-dqn-buffer}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{imagenes/lunar_dqn_target_recompensa.png}
+    \caption{LunarLander-v3: DQN — efecto de la frecuencia de actualización de la Target Network ($C$).}
+    \label{fig:lunar-dqn-target}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{imagenes/lunar_sarsa_sg_arch_combo.png}
+    \caption{LunarLander-v3: SARSA-SG — efecto de la arquitectura de red.}
+    \label{fig:lunar-sarsa-arch}
+\end{figure}
+
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{imagenes/lunar_comparativa_recompensa.png}
     \caption{LunarLander-v3: recompensa media acumulada por episodio (SARSA-SG vs DQN).}
+    \label{fig:lunar-comp-recompensa}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.9\linewidth]{imagenes/lunar_comparativa_pasos.png}
     \caption{LunarLander-v3: eficiencia en pasos por episodio (SARSA-SG vs DQN).}
+    \label{fig:lunar-comp-pasos}
 \end{figure}
 
 \section{Conclusiones}
