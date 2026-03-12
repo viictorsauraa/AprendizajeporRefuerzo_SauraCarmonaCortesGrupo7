@@ -1,0 +1,48 @@
+% --------------------- NO TOCAR ----------------------
+\documentclass[a4paper, 10pt, twocolumn]{report}
+\input plantillaTeXpracticasRL.sty % Incluir fichero de estilo del máster
+% -----------------------------------------------------
+
+
+
+% MODIFICA ESTOS DATOS
+% Incluir el nombre de la obra y los nombres completos de los autores del trabajo, junto con el correo electrónico um.es para cada autor.
+\title{Aprendizaje por Refuerzo}
+\author{
+Guillermo Carmona Martínez 	\\
+\texttt{
+g.carmonamartinez@um.es} \\[0.25cm]
+Francisco José Cortes Delgado 	\\
+\texttt{
+franciscojose.cortesd@um.es} \\[0.25cm]
+Víctor Saura Meseguer 	\\
+\texttt{victor.sauram@um.es}}
+
+
+
+\begin{document}
+
+% Carátula
+\maketitle % Puedes modificar la carátula usando el entorno titlepage.
+
+% Resumen
+\input{resumen}
+
+% Índice
+\begingroup
+\renewcommand{\thispagestyle}[1]{}  % evitar que \chapter* sobreescriba el estilo
+\pagestyle{empty}
+\tableofcontents
+\endgroup
+\setcounter{page}{1}
+
+% Trabajos
+\input{bandido}
+\input{entornos_complejos}
+
+% Bibliografía
+\bibliographystyle{plain}
+\bibliography{bibliography} % Si el archivo está en la carpeta docs
+
+
+\end{document}

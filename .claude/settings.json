@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex -interaction=nonstopmode EjemUsoplantillaTeXpracticasRL.tex)",
+      "Read(//Library/TeX/texbin/**)",
+      "Read(//usr/local/**)",
+      "Read(//usr/**)"
+    ]
+  }
+}

@@ -309,7 +309,7 @@ Archivo: `src/plotting/plotting.py`
 ### Decisión final
 | Parte | Entorno | Algoritmos que compara |
 |---|---|---|
-| Q-Learning (tabular) | `Taxi-v3` | Q-Learning vs SARSA vs Monte Carlo (ya hechos) |
+| Q-Learning (tabular) | `Taxi-v3` | Q-Learning vs SARSA vs MC On-Policy vs MC Off-Policy (ya hechos) |
 | DQN (aproximado) | `LunarLander-v3` | DQN vs SARSA semi-gradiente (ya hecho) |
 
 ### Por qué esto es válido académicamente
@@ -319,7 +319,7 @@ Usar el mismo entorno que experimentos anteriores **no es falta de originalidad*
 ### Hipótesis que deben articularse en el informe
 
 **Para Q-Learning en Taxi-v3:**
-> *"Dado que Q-Learning es off-policy (su target usa siempre el max sobre acciones, sin importar la exploración actual), esperamos que converja a una política óptima más rápido que SARSA pero con mayor varianza de retorno durante el entrenamiento. MC debería ser el más lento por no usar bootstrapping."*
+> *"La comparación cubre el espacio {on/off-policy} × {TD/MC}: Q-Learning (off-policy, TD), SARSA (on-policy, TD), MC Off-Policy (off-policy, episódico), MC On-Policy (on-policy, episódico). Esperamos que los métodos TD converjan más rápido que los MC por usar bootstrapping. Entre los off-policy, Q-Learning debería superar a MC Off-Policy en velocidad de convergencia pero con mayor varianza durante el entrenamiento. SARSA, al seguir la política de comportamiento, debería ser más conservador y estable."*
 
 Métricas que lo verifican:
 - Recompensa media por episodio (¿quién llega antes a valores positivos?)
