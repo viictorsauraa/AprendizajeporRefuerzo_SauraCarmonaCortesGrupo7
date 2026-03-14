@@ -192,10 +192,10 @@ def plot_arm_statistics(arm_stats: List[dict], algorithms: List[Algorithm], opti
         # Personalizar etiquetas del eje X - Formato ultra-compacto
         x_labels = []
         for arm_idx in range(n_arms):
-            # Formato en una sola línea: B0(1234) o B0★(1234)
+            # Formato en una sola línea: B0(1234) o B0*(1234) para el brazo óptimo
             sel_count = int(selections[arm_idx])
             if optimal_arm_idx is not None and arm_idx == optimal_arm_idx:
-                label = f"B{arm_idx}★({sel_count})"
+                label = f"B{arm_idx}*({sel_count})"
             else:
                 label = f"B{arm_idx}({sel_count})"
             x_labels.append(label)

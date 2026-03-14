@@ -52,6 +52,8 @@ Entornos_Complejos/
 
 Ejecutar en **Google Colab** (recomendado): abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb), que clona el repositorio, instala todas las dependencias y enlaza a todos los notebooks de experimentos.
 
+Cada notebook de experimentos también es **autocontenido**: incluye sus propias celdas de clonado e instalación, por lo que puede abrirse directamente en Colab sin pasar por `main.ipynb`.
+
 Para ejecución **local**, desde la raíz del repositorio:
 ```bash
 pip install gymnasium[toy_text] gymnasium[box2d] torch matplotlib seaborn tqdm

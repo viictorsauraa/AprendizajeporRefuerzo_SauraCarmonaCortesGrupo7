@@ -58,6 +58,8 @@ La forma recomendada de ejecutar el proyecto es a través de **Google Colab** si
 2. Ejecutar la celda de preparación del entorno (clona el repositorio e instala dependencias).
 3. Navegar a cualquier notebook desde los enlaces de la tabla inferior.
 
+Cada notebook de experimentos también es **autocontenido**: incluye sus propias celdas de clonado del repositorio e instalación de dependencias, por lo que puede abrirse y ejecutarse directamente en Colab sin pasar por `main.ipynb`.
+
 Para ejecución **local**:
 ```bash
 git clone https://github.com/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7.git
