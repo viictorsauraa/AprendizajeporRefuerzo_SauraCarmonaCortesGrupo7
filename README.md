@@ -38,6 +38,7 @@ EML/
     ├── weights/                # Pesos de redes entrenadas (.pth)
     ├── metrics/                # Métricas guardadas (.npz)
     ├── main.ipynb              # Punto de entrada de las Partes 2 y 3
+    ├── MonteCarloTodasLasVisitas.ipynb
     ├── MonteCarlo_experiment.ipynb
     ├── MonteCarloOffPolicy.ipynb
     ├── SARSA_experiment.ipynb
@@ -67,8 +68,9 @@ EML/
 | Notebook | Algoritmo | Entorno |
 |---|---|---|
 | [main.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb) | — | Punto de entrada |
+| [MonteCarloTodasLasVisitas.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloTodasLasVisitas.ipynb) | MC On-Policy todas las visitas | FrozenLake-v1 (4×4 y 8×8) |
 | [MonteCarlo_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarlo_experiment.ipynb) | MC On-Policy + Off-Policy | Taxi-v3 |
-| [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | Taxi-v3 |
+| [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | FrozenLake-v1 (4×4 y 8×8) |
 | [SARSA_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment.ipynb) | SARSA | Taxi-v3 |
 | [SARSA_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment_CLIFF.ipynb) | SARSA | CliffWalking-v0 |
 | [Qlearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment.ipynb) | Q-Learning | Taxi-v3 |

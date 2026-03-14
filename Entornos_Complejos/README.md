@@ -37,8 +37,9 @@ Entornos_Complejos/
 ├── weights/                                # Pesos guardados de redes entrenadas (.pth)
 ├── metrics/                                # Métricas guardadas (.npz) para reproducir gráficas
 ├── main.ipynb                              # Punto de entrada: descripción y enlaces a todos los estudios
+├── MonteCarloTodasLasVisitas.ipynb         # MC On-Policy todas las visitas — FrozenLake-v1 (4×4 y 8×8)
 ├── MonteCarlo_experiment.ipynb             # MC On-Policy y Off-Policy — Taxi-v3
-├── MonteCarloOffPolicy.ipynb               # MC Off-Policy en profundidad — Taxi-v3
+├── MonteCarloOffPolicy.ipynb               # MC Off-Policy en profundidad — FrozenLake-v1 (4×4 y 8×8)
 ├── SARSA_experiment.ipynb                  # SARSA tabular — Taxi-v3
 ├── SARSA_experiment_CLIFF.ipynb            # SARSA tabular — CliffWalking-v0
 ├── Qlearning_experiment.ipynb              # Q-Learning tabular — Taxi-v3
@@ -52,8 +53,9 @@ Entornos_Complejos/
 | Notebook | Algoritmo | Entorno |
 |---|---|---|
 | [main.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb) | — | Punto de entrada |
+| [MonteCarloTodasLasVisitas.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloTodasLasVisitas.ipynb) | MC On-Policy todas las visitas | FrozenLake-v1 (4×4 y 8×8) |
 | [MonteCarlo_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarlo_experiment.ipynb) | MC On-Policy + Off-Policy | Taxi-v3 |
-| [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | Taxi-v3 |
+| [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | FrozenLake-v1 (4×4 y 8×8) |
 | [SARSA_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment.ipynb) | SARSA | Taxi-v3 |
 | [SARSA_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment_CLIFF.ipynb) | SARSA | CliffWalking-v0 |
 | [Qlearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment.ipynb) | Q-Learning | Taxi-v3 |
