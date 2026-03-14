@@ -50,11 +50,11 @@ Entornos_Complejos/
 
 ## Instalación y Uso
 
-Ejecutar en **Google Colab** (recomendado): abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb), que clona el repositorio, instala `gymnasium[box2d]`, `torch`, `matplotlib` y `tqdm`, y enlaza a todos los notebooks de experimentos.
+Ejecutar en **Google Colab** (recomendado): abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb), que clona el repositorio, instala todas las dependencias y enlaza a todos los notebooks de experimentos.
 
 Para ejecución **local**, desde la raíz del repositorio:
 ```bash
-pip install gymnasium[box2d] torch matplotlib tqdm
+pip install gymnasium[toy_text] gymnasium[box2d] torch matplotlib seaborn tqdm
 ```
 
 ## Guía de navegación
@@ -75,8 +75,9 @@ pip install gymnasium[box2d] torch matplotlib tqdm
 ## Tecnologías Utilizadas
 
 - **Python 3**
-- **NumPy / Matplotlib** — cálculo numérico y visualización
-- **Gymnasium** — entornos de simulación (Taxi-v3, LunarLander-v3)
+- **NumPy / Matplotlib / Seaborn** — cálculo numérico y visualización
+- **tqdm** — barras de progreso
+- **Gymnasium** — entornos de simulación (FrozenLake-v1, Taxi-v3, CliffWalking-v0, LunarLander-v3)
 - **PyTorch** — redes neuronales para SARSA-SG y DQN
 - **Google Colab** — entorno de ejecución en la nube
 

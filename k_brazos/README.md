@@ -41,17 +41,6 @@ k_brazos/
 └── bandit_experiment_Bernoulli.ipynb            # Comparativa completa — distribución Bernoulli
 ```
 
-## Guía de navegación
-
-| Notebook | Contenido |
-|---|---|
-| [main.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/main.ipynb) | Punto de entrada. Configura el entorno e incluye enlaces a todos los estudios. |
-| [bandit_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment.ipynb) | Estudio de ε-Greedy (ε = 0, 0.01, 0.1) sin inicialización sobre brazos Normal. |
-| [bandit_experiment_Greedy_con_inicializacion.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Greedy_con_inicializacion.ipynb) | Mismo estudio con inicialización round-robin. Compara el efecto de visitar todos los brazos antes de explotar. |
-| [bandit_experiment_Normal.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Normal.ipynb) | Comparativa ε-Greedy, ε-Decaimiento, UCB1, Softmax sobre distribución Normal. |
-| [bandit_experiment_Binomial.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Binomial.ipynb) | Comparativa de algoritmos sobre distribución Binomial B(n, p). |
-| [bandit_experiment_Bernoulli.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Bernoulli.ipynb) | Comparativa de algoritmos sobre distribución Bernoulli (recompensas binarias {0, 1}). |
-
 ## Instalación y Uso
 
 Ejecutar en **Google Colab** (recomendado): abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/main.ipynb), que clona el repositorio e instala las dependencias automáticamente.
@@ -63,9 +52,21 @@ pip install numpy matplotlib seaborn tqdm
 
 Todas las ejecuciones usan `seed=42` para garantizar reproducibilidad.
 
+## Guía de navegación
+
+| Notebook | Contenido |
+|---|---|
+| [main.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/main.ipynb) | Punto de entrada. Configura el entorno e incluye enlaces a todos los estudios. |
+| [bandit_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment.ipynb) | Estudio de ε-Greedy (ε = 0, 0.01, 0.1) sin inicialización sobre brazos Normal. |
+| [bandit_experiment_Greedy_con_inicializacion.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Greedy_con_inicializacion.ipynb) | Mismo estudio con inicialización round-robin. Compara el efecto de visitar todos los brazos antes de explotar. |
+| [bandit_experiment_Normal.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Normal.ipynb) | Comparativa ε-Greedy, ε-Decaimiento, UCB1, Softmax sobre distribución Normal. |
+| [bandit_experiment_Binomial.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Binomial.ipynb) | Comparativa de algoritmos sobre distribución Binomial B(n, p). |
+| [bandit_experiment_Bernoulli.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Bernoulli.ipynb) | Comparativa de algoritmos sobre distribución Bernoulli (recompensas binarias {0, 1}). |
+
 ## Tecnologías Utilizadas
 
 - **Python 3**
 - **NumPy** — cálculo numérico y generación de distribuciones
-- **Matplotlib** — visualización de resultados
+- **Matplotlib / Seaborn** — visualización de resultados
+- **tqdm** — barras de progreso
 - **Google Colab** — entorno de ejecución en la nube

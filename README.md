@@ -96,7 +96,8 @@ pip install -r requirements.txt
 ## Tecnologías Utilizadas
 
 - **Python 3**
-- **NumPy / Matplotlib** — cálculo numérico y visualización
-- **Gymnasium** — entornos de simulación (Taxi-v3, CliffWalking-v0, LunarLander-v3)
+- **NumPy / Matplotlib / Seaborn** — cálculo numérico y visualización
+- **tqdm** — barras de progreso
+- **Gymnasium** — entornos de simulación (FrozenLake-v1, Taxi-v3, CliffWalking-v0, LunarLander-v3)
 - **PyTorch** — redes neuronales para SARSA-SG y DQN
 - **Google Colab** — entorno de ejecución en la nube
