@@ -48,6 +48,15 @@ Entornos_Complejos/
 └── DeepQLearning_experiment.ipynb          # Deep Q-Learning — LunarLander-v3
 ```
 
+## Instalación y Uso
+
+Ejecutar en **Google Colab** (recomendado): abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb), que clona el repositorio, instala `gymnasium[box2d]`, `torch`, `matplotlib` y `tqdm`, y enlaza a todos los notebooks de experimentos.
+
+Para ejecución **local**, desde la raíz del repositorio:
+```bash
+pip install gymnasium[box2d] torch matplotlib tqdm
+```
+
 ## Guía de navegación
 
 | Notebook | Algoritmo | Entorno |

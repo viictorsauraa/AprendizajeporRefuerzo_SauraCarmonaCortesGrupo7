@@ -54,7 +54,12 @@ k_brazos/
 
 ## Instalación y Uso
 
-Los notebooks están diseñados para ejecutarse en **Google Colab**. El notebook `main.ipynb` instala automáticamente las dependencias y clona el código necesario. Para ejecutar localmente:
+Ejecutar en **Google Colab** (recomendado): abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/main.ipynb), que clona el repositorio e instala las dependencias automáticamente.
+
+Para ejecución **local**, desde la raíz del repositorio:
+```bash
+pip install numpy matplotlib seaborn tqdm
+```
 
 Todas las ejecuciones usan `seed=42` para garantizar reproducibilidad.
 

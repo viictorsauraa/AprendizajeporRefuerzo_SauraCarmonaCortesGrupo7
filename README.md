@@ -50,6 +50,21 @@ EML/
     └── README.md
 ```
 
+## Instalación y Uso
+
+La forma recomendada de ejecutar el proyecto es a través de **Google Colab** sin instalación local:
+
+1. Abrir [`main.ipynb`](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/main.ipynb) en Colab.
+2. Ejecutar la celda de preparación del entorno (clona el repositorio e instala dependencias).
+3. Navegar a cualquier notebook desde los enlaces de la tabla inferior.
+
+Para ejecución **local**:
+```bash
+git clone https://github.com/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7.git
+cd AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7
+pip install -r requirements.txt
+```
+
 ## Guía de navegación
 
 ### Parte 1 — Bandido de k-brazos
