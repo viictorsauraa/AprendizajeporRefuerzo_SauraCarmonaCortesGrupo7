@@ -5,7 +5,7 @@
 - **Alumnos:** Víctor Saura Meseguer, Guillermo Carmona Martínez, Francisco José Cortes Delgado
 - **Asignatura:** Extensiones de Machine Learning
 - **Curso:** 2025/2026
-- **Grupo:** 7
+- **Grupo:** SauraCarmonaCortes (Grupo 7)
 
 ## Descripción
 
@@ -51,15 +51,15 @@ Entornos_Complejos/
 
 | Notebook | Algoritmo | Entorno |
 |---|---|---|
-| [main.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/main.ipynb) | — | Punto de entrada |
-| [MonteCarlo_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/MonteCarlo_experiment.ipynb) | MC On-Policy + Off-Policy | Taxi-v3 |
-| [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | Taxi-v3 |
-| [SARSA_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/SARSA_experiment.ipynb) | SARSA | Taxi-v3 |
-| [SARSA_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/SARSA_experiment_CLIFF.ipynb) | SARSA | CliffWalking-v0 |
-| [Qlearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/Qlearning_experiment.ipynb) | Q-Learning | Taxi-v3 |
-| [Qlearning_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/Qlearning_experiment_CLIFF.ipynb) | Q-Learning | CliffWalking-v0 |
-| [SARSA_SG_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/SARSA_SG_experiment.ipynb) | SARSA semi-gradiente | LunarLander-v3 |
-| [DeepQLearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/Entornos_Complejos/DeepQLearning_experiment.ipynb) | Deep Q-Learning | LunarLander-v3 |
+| [main.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/main.ipynb) | — | Punto de entrada |
+| [MonteCarlo_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarlo_experiment.ipynb) | MC On-Policy + Off-Policy | Taxi-v3 |
+| [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | Taxi-v3 |
+| [SARSA_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment.ipynb) | SARSA | Taxi-v3 |
+| [SARSA_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment_CLIFF.ipynb) | SARSA | CliffWalking-v0 |
+| [Qlearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment.ipynb) | Q-Learning | Taxi-v3 |
+| [Qlearning_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment_CLIFF.ipynb) | Q-Learning | CliffWalking-v0 |
+| [SARSA_SG_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_SG_experiment.ipynb) | SARSA semi-gradiente | LunarLander-v3 |
+| [DeepQLearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/DeepQLearning_experiment.ipynb) | Deep Q-Learning | LunarLander-v3 |
 
 ## Tecnologías Utilizadas
 

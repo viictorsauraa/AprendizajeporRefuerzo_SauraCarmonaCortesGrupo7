@@ -5,7 +5,7 @@
 - **Alumnos:** Víctor Saura Meseguer, Guillermo Carmona Martínez, Francisco José Cortes Delgado
 - **Asignatura:** Extensiones de Machine Learning
 - **Curso:** 2025/2026
-- **Grupo:** 7
+- **Grupo:** SauraCarmonaCortes (Grupo 7)
 
 ## Descripción
 
@@ -45,12 +45,12 @@ k_brazos/
 
 | Notebook | Contenido |
 |---|---|
-| [main.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/k_brazos/main.ipynb) | Punto de entrada. Configura el entorno e incluye enlaces a todos los estudios. |
-| [bandit_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/k_brazos/bandit_experiment.ipynb) | Estudio de ε-Greedy (ε = 0, 0.01, 0.1) sin inicialización sobre brazos Normal. |
-| [bandit_experiment_Greedy_con_inicializacion.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/k_brazos/bandit_experiment_Greedy_con_inicializacion.ipynb) | Mismo estudio con inicialización round-robin. Compara el efecto de visitar todos los brazos antes de explotar. |
-| [bandit_experiment_Normal.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/k_brazos/bandit_experiment_Normal.ipynb) | Comparativa ε-Greedy, ε-Decaimiento, UCB1, Softmax sobre distribución Normal. |
-| [bandit_experiment_Binomial.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/k_brazos/bandit_experiment_Binomial.ipynb) | Comparativa de algoritmos sobre distribución Binomial B(n, p). |
-| [bandit_experiment_Bernoulli.ipynb](https://colab.research.google.com/github/viictorsauraa/EML/blob/main/k_brazos/bandit_experiment_Bernoulli.ipynb) | Comparativa de algoritmos sobre distribución Bernoulli (recompensas binarias {0, 1}). |
+| [main.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/main.ipynb) | Punto de entrada. Configura el entorno e incluye enlaces a todos los estudios. |
+| [bandit_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment.ipynb) | Estudio de ε-Greedy (ε = 0, 0.01, 0.1) sin inicialización sobre brazos Normal. |
+| [bandit_experiment_Greedy_con_inicializacion.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Greedy_con_inicializacion.ipynb) | Mismo estudio con inicialización round-robin. Compara el efecto de visitar todos los brazos antes de explotar. |
+| [bandit_experiment_Normal.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Normal.ipynb) | Comparativa ε-Greedy, ε-Decaimiento, UCB1, Softmax sobre distribución Normal. |
+| [bandit_experiment_Binomial.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Binomial.ipynb) | Comparativa de algoritmos sobre distribución Binomial B(n, p). |
+| [bandit_experiment_Bernoulli.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/k_brazos/bandit_experiment_Bernoulli.ipynb) | Comparativa de algoritmos sobre distribución Bernoulli (recompensas binarias {0, 1}). |
 
 ## Instalación y Uso
 
