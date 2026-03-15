@@ -90,10 +90,10 @@ pip install -r requirements.txt
 | [MonteCarloOffPolicy.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/MonteCarloOffPolicy.ipynb) | MC Off-Policy (importancia ponderada) | FrozenLake-v1 (4×4 y 8×8) |
 | [SARSA_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment.ipynb) | SARSA | Taxi-v3 |
 | [SARSA_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_experiment_CLIFF.ipynb) | SARSA | CliffWalking-v0 |
-| [Qlearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment.ipynb) | Q-Learning | Taxi-v3 |
-| [Qlearning_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment_CLIFF.ipynb) | Q-Learning | CliffWalking-v0 |
+| [Qlearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment.ipynb) | Q-Learning + comparativa SARSA vs Q-Learning | Taxi-v3 |
+| [Qlearning_experiment_CLIFF.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/Qlearning_experiment_CLIFF.ipynb) | Q-Learning + comparativa SARSA vs Q-Learning | CliffWalking-v1 |
 | [SARSA_SG_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/SARSA_SG_experiment.ipynb) | SARSA semi-gradiente | LunarLander-v3 |
-| [DeepQLearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/DeepQLearning_experiment.ipynb) | Deep Q-Learning | LunarLander-v3 |
+| [DeepQLearning_experiment.ipynb](https://colab.research.google.com/github/viictorsauraa/AprendizajeporRefuerzo_SauraCarmonaCortesGrupo7/blob/main/Entornos_Complejos/DeepQLearning_experiment.ipynb) | Deep Q-Learning + comparativa SARSA-SG vs DQN | LunarLander-v3 |
 
 ## Tecnologías Utilizadas
 
