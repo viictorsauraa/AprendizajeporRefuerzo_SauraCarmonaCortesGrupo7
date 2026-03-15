@@ -18,4 +18,6 @@ Entornos_Complejos/*.jpeg
 Entornos_Complejos/*.pdf
 Entornos_Complejos/*.gif
 .claude
+.DS_Store
+**/.DS_Store
 
