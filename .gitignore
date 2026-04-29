@@ -7,3 +7,17 @@ eml_env
 # Cache
 *.pyc
 Pruebas-Guille/
+imagenes
+k_brazos/*.md
+PDFs
+RL_Entrega_latex
+Entornos_Complejos/*.md
+Entornos_Complejos/*.png
+Entornos_Complejos/*.jpg
+Entornos_Complejos/*.jpeg
+Entornos_Complejos/*.pdf
+Entornos_Complejos/*.gif
+.claude
+.DS_Store
+**/.DS_Store
+Entrega_Parte_RL.pdf

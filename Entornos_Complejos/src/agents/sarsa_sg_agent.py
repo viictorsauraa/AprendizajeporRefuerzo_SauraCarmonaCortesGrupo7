@@ -99,7 +99,7 @@ class SARSASGAgent(GymnasiumAgent):
         q_prediction = q_values[action] # Valor estimado para la acción tomada
 
         # calculo de Ut = Rt+1 + γ * q^(St+1, At+1, wt)
-        # Usamos no_grad() porque es sarsa semigradiente: el objetivo se trata como constante
+        # Usamos no_grad() porque es sarsa semigradiente, el objetivo se trata como constante
         with torch.no_grad(): 
             if terminated or truncated:
                 target_u = torch.tensor(reward, dtype=torch.float32, device=self.device) # Ut = Rt+1

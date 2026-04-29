@@ -89,7 +89,7 @@ class DQNAgent(GymnasiumAgent):
         self.replay_buffer = ReplayBuffer(capacity=buffer_capacity)
 
         # DeepQNetwork (Red Principal): red neuronal con pesos w que, dado un vector
-        # de estado continuo (las 8 variables), devuelve Q(s, a; w) — el valor Q
+        # de estado continuo (las 8 variables), devuelve Q(s, a; w). el valor Q
         # estimado para cada una de las 4 posibles acciones. Guiará a la política
         # epsilon-greedy a elegir la mejor acción.
         self.network = DQN_Network(env.action_space.n, env.observation_space.shape[0], hidden_size=hidden_size, num_hidden_layers=num_hidden_layers).to(self.device)

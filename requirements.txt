@@ -3,6 +3,6 @@ seaborn~=0.13.2
 matplotlib~=3.10.0
 tqdm
 torch
-gymnasium
+gymnasium[toy_text,box2d]
 imageio
 swig
