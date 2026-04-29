@@ -377,6 +377,7 @@ Los resultados permiten extraer varias conclusiones:
     \item La dimensión on-policy/off-policy es crítica en CliffWalking: SARSA aprende rutas seguras y Q-Learning tiende a la ruta óptima aunque explore con riesgo.
     \item En entornos continuos, la aproximación con redes es imprescindible. DQN es estable pero sensible a $C$ y al tamaño del buffer; SARSA-SG puede rendir mejor con una tasa de aprendizaje mayor.
     \item La comparación DQN vs SARSA-SG no es absoluta: el ranking depende de hiperparámetros y horizonte de entrenamiento.
+    \item Frente a enfoques previos centrados en replicar tutoriales, aquí se plantea un protocolo comparativo consistente (mismas métricas, mismas semillas y barridos de hiperparámetros) y se contrasta tabular vs aproximado en entornos discretos y continuos, aportando evidencia empírica más completa y reproducible.
 \end{itemize}
 
 Como trabajo futuro se propone repetir con múltiples semillas, igualar hiperparámetros entre aproximadores y evaluar variantes como Double DQN o Prioritized Replay.

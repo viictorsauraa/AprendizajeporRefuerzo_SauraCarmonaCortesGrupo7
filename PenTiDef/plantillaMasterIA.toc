@@ -1,0 +1,5 @@
+\babel@toc {english}{}\relax 
+\beamer@sectionintoc {1}{Introducción}{3}{0}{1}
+\beamer@sectionintoc {2}{Estado del arte}{5}{0}{2}
+\beamer@sectionintoc {3}{Resultados}{13}{0}{3}
+\beamer@sectionintoc {4}{Conclusiones}{24}{0}{4}

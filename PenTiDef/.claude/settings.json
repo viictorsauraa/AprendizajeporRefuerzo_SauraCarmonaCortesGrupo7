@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdflatex -interaction=nonstopmode -halt-on-error plantillaMasterIA.tex)",
+      "Read(//Library/TeX/texbin/**)",
+      "Read(//usr/local/**)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(mdfind -name pdflatex)",
+      "Bash(mdfind -name \"pdflatex\")",
+      "Read(//Applications/**)",
+      "Read(//usr/**)",
+      "Read(//Library/**)",
+      "Bash(brew list *)",
+      "Bash(command -v brew)",
+      "Bash(command -v docker)",
+      "Bash(brew info *)",
+      "Bash(/Library/TeX/texbin/pdflatex -interaction=nonstopmode -halt-on-error plantillaMasterIA.tex)",
+      "Bash(sudo /Library/TeX/texbin/tlmgr install xurl multirow booktabs tabularx hhline colortbl mathtools lm algorithms algorithmicx)"
+    ]
+  }
+}
